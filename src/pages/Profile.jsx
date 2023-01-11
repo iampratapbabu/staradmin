@@ -103,6 +103,7 @@ const Profile = () =>{
     const handleImage = (e) =>{
       setFile(e.target.files[0]);
       console.log(e.target.files[0]);
+
     }
 
     const uploadImage = (e) =>{
