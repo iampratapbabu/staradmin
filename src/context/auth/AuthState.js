@@ -5,7 +5,12 @@ import AuthReducer from './AuthReducer';
 
 import {REGISTER_SUCCESS,REGISTER_FAIL,
     USER_LOADED,AUTH_ERROR,LOGIN_SUCCESS,LOGIN_FAIL,
-    LOGOUT,CLEAR_ERRORS,TOGGLE_LOGIN,TOGGLE_LOADING,SHOW_ALERT,REMOVE_ALERT} from '../types';
+    LOGOUT,CLEAR_ERRORS,TOGGLE_LOGIN,TOGGLE_LOADING,SHOW_ALERT,REMOVE_ALERT,CHANGE_PASSWORD_FAILED,
+    CHANGE_PASSWORD_SUCCESS
+} from '../types';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
     
 
 
@@ -24,7 +29,6 @@ const AuthState = (props) =>{
 
     const [state,dispatch]=useReducer(AuthReducer,initialState);
     
-
     const login = (user) =>{
         axios.post('http://localhost:3200/users/login',user)
         .then(res=>{
@@ -50,9 +54,9 @@ const AuthState = (props) =>{
        
     }
 
-    const register = (userData) =>{
+    const register = async(userData) =>{
         console.log(userData);
-        axios.post('http://localhost:3200/users/signup',userData)
+        await axios.post('http://localhost:3200/users/signup',userData)
         .then(res=>{
             // console.log(res.data);
             let serverResponse = res;
@@ -124,8 +128,22 @@ const AuthState = (props) =>{
         })
     }
 
-    const changePassword = (value) =>{
-        console.log("change password from auth state",value)
+    const changePassword = async(value,userid) =>{
+        console.log("change password from auth state",value);
+        await axios.patch(`http://localhost:3200/users/changepassword/${userid}`,value)
+            .then(res=>{
+                console.log(res);
+                let serverResponse =res;
+                if(serverResponse.data.msg == 'Password Updated'){
+                    toast.success(serverResponse.data.msg)
+                }
+            })
+            .catch(err=>{
+                let serverResponse = err;
+                console.log(serverResponse);
+                toast.error(serverResponse.response.data.msg);
+            })
+
     }
 
     const toggleLogin = (value) =>{

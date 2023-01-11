@@ -91,7 +91,8 @@ const Profile = () =>{
 
     const onSubmitNewPassword = (e) =>{
       e.preventDefault();
-      changePassword(newPasswordState);
+      changePassword(newPasswordState,user._id,);
+      
     }
 
 
