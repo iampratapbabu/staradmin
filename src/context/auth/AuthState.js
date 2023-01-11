@@ -124,6 +124,10 @@ const AuthState = (props) =>{
         })
     }
 
+    const changePassword = (value) =>{
+        console.log("change password from auth state",value)
+    }
+
     const toggleLogin = (value) =>{
         console.log("set toggle login function runs");
         dispatch({
@@ -206,6 +210,7 @@ const AuthState = (props) =>{
             loadUser,
             login,
             logout,
+            changePassword,
             userData,
             createProfile,
             toggleLogin,

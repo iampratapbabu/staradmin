@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Profile = () =>{
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
-    const {loading,setLoading,user,createProfile,showAlert,setAlert,msg,alertMsg} = authContext;
+    const {loading,setLoading,user,createProfile,showAlert,setAlert,msg,alertMsg,changePassword} = authContext;
 
   useEffect(()=>{
     //console.log(user._id);
@@ -69,7 +69,7 @@ const Profile = () =>{
 
     //password form handling
     const [showDiv,setShowDiv] = useState(false);
-    const [newPassword,setNewPassword] = useState({
+    const [newPasswordState,setNewPasswordState] = useState({
       oldPassword:"",
       newPassword:"",
       confirmNewPassword:"",
@@ -85,25 +85,34 @@ const Profile = () =>{
       }
     }
 
-    if (loading) return (<h1>Loading...</h1>);
+    const onChangePassword = (e)=>{
+      setNewPasswordState({...newPasswordState,[e.target.name]:e.target.value});
+    }
 
+    const onSubmitNewPassword = (e) =>{
+      e.preventDefault();
+      changePassword(newPasswordState);
+    }
+
+
+    if (loading) return (<h1>Loading...</h1>);
     return (
         <Fragment>
-        <div class="container">
+        <div className="container">
           {showAlert && <Alert msg={["success",alertMsg]}/>}
            
-                <div class="main-body">
+                <div className="main-body">
                
-                <div class="row gutters-sm">
-                <div class="col-md-4 mb-3">
-                <div class="card">
-                <div class="card-body">
-                  <div class="d-flex flex-column align-items-center text-center">
+                <div className="row gutters-sm">
+                <div className="col-md-4 mb-3">
+                <div className="card">
+                <div className="card-body">
+                  <div className="d-flex flex-column align-items-center text-center">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"/>
-                    <div class="mt-3">
+                    <div className="mt-3">
                      
                       {user?.fname}{' '}{user?.lname}
-                      <p class="text-muted mb-1" style={{"color":"red",'fontWeight':"bold"}}>{user?.email}</p>
+                      <p className="text-muted mb-1" style={{"color":"red",'fontWeight':"bold"}}>{user?.email}</p>
                       
                     </div>
                   </div>
@@ -112,42 +121,42 @@ const Profile = () =>{
               </div>
               
         
-              <div class="col-md-8">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0" >Full Name</h6>
+              <div className="col-md-8">
+              <div className="card mb-3">
+                <div className="card-body">
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h6 className="mb-0" >Full Name</h6>
                     </div>
-                    <div class="col-sm-9 text-muted">
+                    <div className="col-sm-9 text-muted">
                       {user?.fname}{' '}{user?.lname}
                     </div>
                   </div>
                   <hr/>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h6 className="mb-0">Email</h6>
                     </div>
                     <div class="col-sm-9 text-muted" >
                       {user?.email}
                     </div>
                   </div>
                   <hr/>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Phone</h6>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h6 className="mb-0">Phone</h6>
                     </div>
-                    <div class="col-sm-9 text-muted">
+                    <div className="col-sm-9 text-muted">
                       {user?.phone}
                     </div>
                   </div>
                   <hr/>
                
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Address</h6>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h6 className="mb-0">Address</h6>
                     </div>
-                    <div class="col-sm-9 text-muted">
+                    <div className="col-sm-9 text-muted">
                     {user?.address1},{user?.address2},{user?.city},{user?.country}
                     </div>
                   </div>
@@ -160,24 +169,24 @@ const Profile = () =>{
 
                   {showDiv?
                   <>
-                      <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title">Change Password</h4>
-                        <form class="forms-sample">
-                          <div class="form-group">
-                            <label for="exampleInputPassword1">Old Password</label>
-                            <input type="password" class="form-control" name="oldPassword" placeholder="*********" />
+                      <div className="card">
+                      <div className="card-body">
+                        <h4 className="card-title">Change Password</h4>
+                        <form className="forms-sample" onSubmit={onSubmitNewPassword}>
+                          <div className="form-group">
+                            <label>Old Password</label>
+                            <input type="password" className="form-control" name="oldPassword" placeholder="*********" onChange={onChangePassword} />
                           </div>
-                          <div class="form-group">
-                            <label for="exampleInputPassword1">New Password</label>
-                            <input type="password" class="form-control" name="NewPassword" placeholder="**********" />
+                          <div className="form-group">
+                            <label>New Password</label>
+                            <input type="password" className="form-control" name="newPassword" placeholder="**********" onChange={onChangePassword} />
                           </div>
-                          <div class="form-group">
-                            <label for="exampleInputPassword1">confirm Password</label>
-                            <input type="password" class="form-control" name="confirmNewPassword" placeholder="*********" />
+                          <div className="form-group">
+                            <label>confirm Password</label>
+                            <input type="password" className="form-control" name="confirmNewPassword" placeholder="*********" onChange={onChangePassword} />
                           </div>
-                          <button type="submit" class="btn btn-success mr-2">Submit</button>
-                          <button class="btn btn-light" onClick={()=>setShowDiv(false)}>Cancel</button>
+                          <button type="submit" className="btn btn-success mr-2">Submit</button>
+                          <button className="btn btn-light" onClick={()=>setShowDiv(false)}>Cancel</button>
                         </form>
                       </div>
                     </div>
@@ -193,58 +202,58 @@ const Profile = () =>{
 
         <div className='container'>
             
-            <div class="col-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">User Profile</h4>
-                    <form class="form-sample" onSubmit={onSubmit}>
+            <div className="col-12 grid-margin">
+                <div className="card">
+                  <div className="card-body">
+                    <h4 className="card-title">User Profile</h4>
+                    <form className="form-sample" onSubmit={onSubmit}>
                       
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group row">
                           {/* <h2>{userProfile.fname}</h2> */}
-                            <label class="col-sm-3 col-form-label">First Name</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="fname" value={userProfile?.fname || ''}  onChange={onChange} />
+                            <label className="col-sm-3 col-form-label">First Name</label>
+                            <div className="col-sm-9">
+                              <input type="text" className="form-control" name="fname" value={userProfile?.fname || ''}  onChange={onChange} />
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Last Name</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="lname" value={userProfile?.lname || ''} onChange={onChange}/>
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">Last Name</label>
+                            <div className="col-sm-9">
+                              <input type="text" className="form-control" name="lname" value={userProfile?.lname || ''} onChange={onChange}/>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Gender</label>
-                            <div class="col-sm-9">
-                              <select class="form-control" name="gender" value={userProfile?.gender || ''} onChange={onChange}>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">Gender</label>
+                            <div className="col-sm-9">
+                              <select className="form-control" name="gender" value={userProfile?.gender || ''} onChange={onChange}>
                                 <option>Male</option>
                                 <option>Female</option>
                               </select>
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Date of Birth</label>
-                            <div class="col-sm-9">
-                              <input type="date" class="form-control" placeholder="dd/mm/yyyy" name="dob"  onChange={onChange}/>
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">Date of Birth</label>
+                            <div className="col-sm-9">
+                              <input type="date" className="form-control" placeholder="dd/mm/yyyy" name="dob"  onChange={onChange}/>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Category</label>
-                            <div class="col-sm-9">
-                              <select class="form-control" name="category" value={userProfile?.category || ''} onChange={onChange}>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">Category</label>
+                            <div className="col-sm-9">
+                              <select className="form-control" name="category" value={userProfile?.category || ''} onChange={onChange}>
                                 <option>Category1</option>
                                 <option>Category2</option>
                                 <option>Category3</option>
@@ -253,75 +262,75 @@ const Profile = () =>{
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Membership</label>
-                            <div class="col-sm-4">
-                              <div class="form-radio">
-                                <label class="form-check-label"/>
-                                <input className="form-check-input" type="checkbox" value="free" id="flexCheckDefault" checked={userProfile.free}  onChange={handleCheck}/>Free
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">Membership</label>
+                            <div className="col-sm-4">
+                              <div className="form-radio">
+                                <label className="form-check-label"/>
+                                <input className="form-check-input" type="checkbox" value="free" checked={userProfile.free}  onChange={handleCheck}/>Free
                               </div>
                             </div>
-                            <div class="col-sm-5">
-                              <div class="form-radio">
-                                <label class="form-check-label"/>
-                                <input className="form-check-input" type="checkbox" value="professional" id="flexCheckDefault" checked={userProfile.professional} onChange={handleCheck}/>Professional
+                            <div className="col-sm-5">
+                              <div className="form-radio">
+                                <label className="form-check-label"/>
+                                <input className="form-check-input" type="checkbox" value="professional" checked={userProfile.professional} onChange={handleCheck}/>Professional
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <p class="card-description"> Address </p>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Address 1</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="address1" value={userProfile?.address1 || ''} onChange={onChange}/>
+                      <p className="card-description"> Address </p>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">Address 1</label>
+                            <div className="col-sm-9">
+                              <input type="text" className="form-control" name="address1" value={userProfile?.address1 || ''} onChange={onChange}/>
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">State</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="state" value={userProfile?.state || ''} onChange={onChange}/>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Address 2</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="address2" value={userProfile?.address2 || ''} onChange={onChange}/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Postcode</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="postcode" value={userProfile?.postcode || ''} onChange={onChange}/>
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">State</label>
+                            <div className="col-sm-9">
+                              <input type="text" className="form-control" name="state" value={userProfile?.state || ''} onChange={onChange}/>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">City</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="city" value={userProfile?.city || ''} onChange={onChange}/>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">Address 2</label>
+                            <div className="col-sm-9">
+                              <input type="text" className="form-control" name="address2" value={userProfile?.address2 || ''} onChange={onChange}/>
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Country</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" name="country" value={userProfile?.country || ''} onChange={onChange}/>
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">Postcode</label>
+                            <div className="col-sm-9">
+                              <input type="text" className="form-control" name="postcode" value={userProfile?.postcode || ''} onChange={onChange}/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">City</label>
+                            <div className="col-sm-9">
+                              <input type="text" className="form-control" name="city" value={userProfile?.city || ''} onChange={onChange}/>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label className="col-sm-3 col-form-label">Country</label>
+                            <div className="col-sm-9">
+                              <input type="text" className="form-control" name="country" value={userProfile?.country || ''} onChange={onChange}/>
                             </div>
                           </div>
                         </div>
@@ -330,10 +339,8 @@ const Profile = () =>{
                     </form>
                   </div>
                 </div>
+              
               </div>
-         
-
-
             </div>
 
         </Fragment>
