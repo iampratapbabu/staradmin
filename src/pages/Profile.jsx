@@ -11,7 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const Profile = () =>{
     const authContext = useContext(AuthContext);
     const navigate = useNavigate();
-    const {loading,setLoading,user,createProfile,showAlert,setAlert,msg,alertMsg,changePassword} = authContext;
+    const {loading,setLoading,user,createProfile,showAlert,setAlert,msg,alertMsg,changePassword,changeImage} = authContext;
+
+    const formData = new FormData();
 
   useEffect(()=>{
     //console.log(user._id);
@@ -95,6 +97,20 @@ const Profile = () =>{
       
     }
 
+    //image uploading
+    const [file,setFile]=useState({});
+
+    const handleImage = (e) =>{
+      setFile(e.target.files[0]);
+      console.log(e.target.files[0]);
+    }
+
+    const uploadImage = (e) =>{
+      e.preventDefault();
+      formData.append("file", file);
+      changeImage(formData,user._id);
+    }
+
 
     if (loading) return (<h1>Loading...</h1>);
     return (
@@ -109,12 +125,19 @@ const Profile = () =>{
                 <div className="card">
                 <div className="card-body">
                   <div className="d-flex flex-column align-items-center text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"/>
+                    <img src={`http://localhost:3200/${user?.photo}`} alt="Admin" class="rounded-circle" width="150"/>
                     <div className="mt-3">
                      
                       {user?.fname}{' '}{user?.lname}
                       <p className="text-muted mb-1" style={{"color":"red",'fontWeight':"bold"}}>{user?.email}</p>
-                      
+
+                      <form className="forms-sample" onSubmit={uploadImage}>
+                          <div className="form-group">
+                            <input type="file" accept=".png .jpeg .jpg" className="form-control" name="file" onChange={handleImage} />
+                          </div>
+                          <button type="submit" className="btn btn-success mr-2">Update Image</button>
+                        </form>
+
                     </div>
                   </div>
                 </div>

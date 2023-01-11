@@ -14,6 +14,9 @@ const Register = () =>{
         if(localStorage.getItem('token')){
             navigate('/dashboard')
         }
+        // if(isLoggedIn){
+        //   navigate('/dashboard')
+        // }
     },[])
 
     const [userRegister,setUserregister]=useState({

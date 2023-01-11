@@ -146,6 +146,25 @@ const AuthState = (props) =>{
 
     }
 
+    const changeImage = async(value,userid) =>{
+        console.log("data from auth state",value);
+        await axios.patch(`http://localhost:3200/users/change-image/${userid}`,value)
+        .then(res=>{
+            console.log(res);
+            let serverResponse = res;
+            if(res.data.msg == 'Image updated'){
+                toast.success(res.data.msg)
+            }else{
+                toast.error("Image upload failed")
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+            let serverResponse = err;
+            toast.error(serverResponse.response.data.msg);
+        })
+    }
+
     const toggleLogin = (value) =>{
         console.log("set toggle login function runs");
         dispatch({
@@ -229,6 +248,7 @@ const AuthState = (props) =>{
             login,
             logout,
             changePassword,
+            changeImage,
             userData,
             createProfile,
             toggleLogin,
