@@ -13,7 +13,7 @@ const Sidebar = () =>{
     <li className="nav-item nav-profile">
       <a href="#" className="nav-link">
         <div className="profile-image">
-          <img className="img-xs rounded-circle" src="assets/images/faces/face8.jpg" alt="profile image"/>
+          <img className="img-xs rounded-circle" src={`http://localhost:3200/${user?.photo}`} alt="profile image"/>
           <div className="dot-indicator bg-success"></div>
         </div>
         <div className="text-wrapper">
