@@ -77,7 +77,7 @@ const Login = () =>{
 
     return(
         <Fragment>
-          <ToastContainer/>
+         
       {showAlert && <Alert msg={["success","Logged out Successully"]}/>}
       <div className="container-scroller">
       <div className="container-fluid page-body-wrapper full-page-wrapper">

@@ -13,6 +13,13 @@ const Profile = () =>{
     const navigate = useNavigate();
     const {loading,setLoading,user,createProfile,showAlert,setAlert,msg,alertMsg} = authContext;
 
+  useEffect(()=>{
+    //console.log(user._id);
+    setUserProfile(user);
+    console.log(user);
+  },[])
+
+    //profile form handling
     const [userProfile,setUserProfile] = useState({
         fname:"",
         lname:"",
@@ -28,57 +35,62 @@ const Profile = () =>{
         free:false,
         professional:false
 
-    })
+    });
 
-    //console.log("user profile=", userProfile);
-    
-
-    useEffect(()=>{
-        //console.log(user._id);
-        setUserProfile(user);
-        console.log(user);
-    },[])
-
+     
     const onChange = (e) =>{
-        setUserProfile({...userProfile,[e.target.name]:e.target.value});
-        
+      setUserProfile({...userProfile,[e.target.name]:e.target.value});
     };
-
+  
     const onSubmit = (e) =>{
       setLoading(true);
       e.preventDefault();
       // userProfile.additionalField = "this is added"; adding key value pair after declaration of state
-        
+          
       console.log(userProfile);
       setAlert(true);
       createProfile(user._id,userProfile); 
       toast.success("updated Successfully");
-  
-    }
     
+    }
+      
     const {membership} = userProfile 
     const handleCheck = (e) =>{
-        console.log(e.target.value);
-        if(e.target.value === "free"){
-            // setUserProfile({...userProfile,free:"hello"}) alternate way of adding addtional field in state
-            setUserProfile({...userProfile,free:true,professional:false});
-            
-        }
-        if(e.target.value === "professional"){
-            setUserProfile({...userProfile,free:false,professional:true});
-            
-        }
-        
+      console.log(e.target.value);
+      if(e.target.value === "free"){
+        // setUserProfile({...userProfile,free:"hello"}) alternate way of adding addtional field in state
+        setUserProfile({...userProfile,free:true,professional:false});
+      }
+      if(e.target.value === "professional"){
+        setUserProfile({...userProfile,free:false,professional:true});
+              
+      }
+    }
+
+    //password form handling
+    const [showDiv,setShowDiv] = useState(false);
+    const [newPassword,setNewPassword] = useState({
+      oldPassword:"",
+      newPassword:"",
+      confirmNewPassword:"",
+    });
+
+    const toggleDiv = () =>{
+      if(showDiv==true){
+        setShowDiv(false);
+        console.log("div is closed");
+      }else{
+        setShowDiv(true);
+        console.log("div is open");
+      }
     }
 
     if (loading) return (<h1>Loading...</h1>);
 
     return (
         <Fragment>
-
-<div class="container">
-<ToastContainer />
-            {showAlert && <Alert msg={["success",alertMsg]}/>}
+        <div class="container">
+          {showAlert && <Alert msg={["success",alertMsg]}/>}
            
                 <div class="main-body">
                
@@ -140,15 +152,43 @@ const Profile = () =>{
                     </div>
                   </div>
                   <hr/>
-
-
+                  <button className='btn btn-primary' onClick={toggleDiv}>Change Password</button>
                   </div>
                   </div>
                   </div>
                   </div>
 
-                </div>
+                  {showDiv?
+                  <>
+                      <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Change Password</h4>
+                        <form class="forms-sample">
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Old Password</label>
+                            <input type="password" class="form-control" name="oldPassword" placeholder="*********" />
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">New Password</label>
+                            <input type="password" class="form-control" name="NewPassword" placeholder="**********" />
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">confirm Password</label>
+                            <input type="password" class="form-control" name="confirmNewPassword" placeholder="*********" />
+                          </div>
+                          <button type="submit" class="btn btn-success mr-2">Submit</button>
+                          <button class="btn btn-light" onClick={()=>setShowDiv(false)}>Cancel</button>
+                        </form>
+                      </div>
+                    </div>
+                  </>:null}
+
+
+
+              </div>
             </div>
+
+
 
 
         <div className='container'>

@@ -38,7 +38,7 @@ const Dashboard = () =>{
     return(
         <Fragment>
             
-            <button onClick={()=>toast.success("Logged In Successfully")}>Notify!</button>
+           
             {showAlert && <Alert msg={["success","LoggedIn Successully"]}/>}
              <h1>Dashboard</h1>
              <p>{alertMsg}</p>

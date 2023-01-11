@@ -38,7 +38,8 @@ export default (state,action) =>{
         case REGISTER_SUCCESS:
             return{
                 ...state,
-                msg:action.payload.msg,
+                msg:"Registration Success",
+                isLoggedIn:true,
                 
             }
         

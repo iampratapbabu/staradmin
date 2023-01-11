@@ -1,6 +1,8 @@
 import react, { Fragment,useState,useContext, useEffect} from 'react';
 import AuthContext from '../context/auth/AuthContext';
 import { Link,useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Register = () =>{
@@ -36,6 +38,7 @@ const Register = () =>{
         //console.log(userRegister);
         register(userRegister);
         navigate('/dashboard');
+        toast.success("User Registration Success Please Login")
     
     }
 
