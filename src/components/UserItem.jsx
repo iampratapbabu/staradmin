@@ -12,13 +12,8 @@ const MyVerticallyCenteredModal= (props) => {
 
     useEffect(()=>{
         console.log("use effect from modal");
-        setUserProfile(props.userval)
-        console.log(userProfile)
+
     },[]);
-
-
-    //console.log(props)
-    
 
     const authContext = useContext(AuthContext);
     const {loading,setLoading,user,createProfile,showAlert,setAlert,msg,alertMsg,changePassword,changeImage} = authContext;
@@ -54,8 +49,6 @@ const MyVerticallyCenteredModal= (props) => {
     }
 
     const onChange = (e) =>{
-        
-        console.log(props.userval);
         setUserProfile({...userProfile,[e.target.name]:e.target.value});
     }
 
@@ -63,7 +56,12 @@ const MyVerticallyCenteredModal= (props) => {
         e.preventDefault();
         props.onHide();
         console.log("Modal submitted",userProfile);
-        createProfile(user._id,userProfile);
+        createProfile(props.userval._id,userProfile);
+    }
+
+    const fillForm = () =>{
+        setUserProfile(props.userval)
+        console.log(userProfile)
     }
 
     return (
@@ -80,7 +78,7 @@ const MyVerticallyCenteredModal= (props) => {
         </Modal.Header>
         <Modal.Body>
         <div className='container'>
-            
+            <button id='fillformauto' onClick={fillForm}></button>
             <div className="col-12 grid-margin">
                 <div className="card">
                   <div className="card-body">
@@ -231,11 +229,10 @@ const MyVerticallyCenteredModal= (props) => {
 
 
 const UserItem = ({user}) =>{
+    const authContext = useContext(AuthContext);
+    const {deleteUser} = authContext;
     const [modalShow, setModalShow] = useState(false);
     const [myUser,setmyUser] = useState({});
-
-    console.log(myUser);
-
     const getUser = (userid) =>{
         axios.get(`http://localhost:3200/users/profile/${userid}`).then(res=>{
             console.log(res);
@@ -248,9 +245,12 @@ const UserItem = ({user}) =>{
 
 
     const editUser = (userid) =>{
+        
         setModalShow(true);
         getUser(userid);
+        
         console.log("user to be edited with id",userid);
+       
     }
 
     const detailUser = (userid) =>{
@@ -259,9 +259,10 @@ const UserItem = ({user}) =>{
         console.log("detail of user with id",userid);
     }
 
-    const deleteUser = (userid) =>{
+    const deleteUserSingle = (userid) =>{
         getUser(userid);
         console.log("user to be deleted with id",userid);
+        deleteUser(userid);
     }
 
     return (
@@ -294,7 +295,7 @@ const UserItem = ({user}) =>{
                         <div className="col-md-3">
                           <button onClick={(user_id)=>editUser(user._id)} className='btn btn-inverse-primary  mr-1'>Edit</button>
                           <button onClick={(user_id)=>detailUser(user._id)} className='btn btn-inverse-info mr-1'>Details</button>
-                          <button onClick={(user_id)=>deleteUser(user._id)}className='btn btn-inverse-danger  mr-1'>Delete</button>
+                          <button onClick={(user_id)=>deleteUserSingle(user._id)}className='btn btn-inverse-danger  mr-1'>Delete</button>
                       </div>
 
                       </div>

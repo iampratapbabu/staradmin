@@ -54,7 +54,6 @@ const AuthState = (props) =>{
         })
        
     }
-
     const register = async(userData) =>{
         console.log(userData);
         await axios.post('http://localhost:3200/users/signup',userData)
@@ -95,7 +94,6 @@ const AuthState = (props) =>{
         })
 
     }
-
     const loadUser = () =>{
         try{
             const res = axios.get('http://localhost:3200/users/protect',{
@@ -116,7 +114,6 @@ const AuthState = (props) =>{
 
 
     }
-
     const logout = () =>{
         localStorage.removeItem('token');
         console.log("user is logged out")
@@ -129,7 +126,6 @@ const AuthState = (props) =>{
             payload:"logged out successfully"
         })
     }
-
     const changePassword = async(value,userid) =>{
         console.log("change password from auth state",value);
         await axios.patch(`http://localhost:3200/users/changepassword/${userid}`,value)
@@ -147,7 +143,6 @@ const AuthState = (props) =>{
             })
 
     }
-
     const changeImage = async(value,userid) =>{
         console.log("data from auth state",value);
         await axios.patch(`http://localhost:3200/users/change-image/${userid}`,value)
@@ -166,7 +161,6 @@ const AuthState = (props) =>{
             toast.error(serverResponse.response.data.msg);
         })
     }
-
     const toggleLogin = (value) =>{
         console.log("set toggle login function runs");
         dispatch({
@@ -174,11 +168,9 @@ const AuthState = (props) =>{
             payload:value
         })
     }
-
     const userData = () =>{
         console.log("user date loaded");
     }
-
     const createProfile = (id,profileData) =>{
         
         axios.patch(`http://localhost:3200/users/profile/${id}`,profileData)
@@ -200,7 +192,6 @@ const AuthState = (props) =>{
             alert(err.message)
         })
     }
-
     const setLoading = (value)=>{
         dispatch({
             type:TOGGLE_LOADING,
@@ -209,7 +200,6 @@ const AuthState = (props) =>{
         console.log("this is state loading",state.loading);
         console.log("this is updated loading",value);
     }
-
     const setAlert = (value) =>{
         console.log("Value of alert=> ",value)
         if(value==false){
@@ -224,7 +214,6 @@ const AuthState = (props) =>{
         removeAlert();
 
     }
-
     const removeAlert = () =>{
         setTimeout(() => {
             dispatch({
@@ -232,7 +221,6 @@ const AuthState = (props) =>{
             });
         }, 4000);
     }
-
     const loadUsers = () =>{
         axios.get('http://localhost:3200/users/').then(res=>{
             console.log(res);
@@ -245,7 +233,13 @@ const AuthState = (props) =>{
         //direct accessing state
         //console.log(initialState.alertMsg)
     }
-
+    const deleteUser = async(userid) =>{
+        await axios.delete(`http://localhost:3200/users/profile/${userid}`).then(res=>{
+            console.log(res);
+            toast.error("user is deleted")
+        })
+    }
+ 
     
 
     return(
@@ -261,6 +255,7 @@ const AuthState = (props) =>{
             users:state.users,
             register,
             loadUser,
+            deleteUser,
             login,
             logout,
             changePassword,
