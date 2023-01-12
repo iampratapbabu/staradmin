@@ -1,7 +1,10 @@
 import react, { Fragment,useContext } from 'react';
 import { Navigate,useNavigate ,Link } from 'react-router-dom';
-
 import AuthContext from '../context/auth/AuthContext';
+
+//logos
+import mainlogo from '../assets/images/logo.svg';
+import minilogo from '../assets/images/logo-mini.svg';
 
 const Navbar = () =>{
   const authContext = useContext(AuthContext);
@@ -11,9 +14,9 @@ const Navbar = () =>{
             <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div className="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
     <Link className="navbar-brand brand-logo" to="/dashboard">
-      <img src="../assets/images/logo.svg" alt="logo" /> </Link>
+      <img src={mainlogo} alt="logo" /> </Link>
     <Link className="navbar-brand brand-logo-mini" to="/dashboard">
-      <img src="../assets/images/logo-mini.svg" alt="logo" /> </Link>
+      <img src={minilogo} alt="logo" /> </Link>
   </div>
   <div className="navbar-menu-wrapper d-flex align-items-center">
     <ul className="navbar-nav">
