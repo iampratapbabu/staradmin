@@ -1,4 +1,6 @@
 import react, { Fragment,useContext } from 'react';
+import { Navigate,useNavigate ,Link } from 'react-router-dom';
+
 import AuthContext from '../context/auth/AuthContext';
 
 const Navbar = () =>{
@@ -8,10 +10,10 @@ const Navbar = () =>{
         <Fragment>
             <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div className="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-    <a className="navbar-brand brand-logo" href="index.html">
-      <img src="assets/images/logo.svg" alt="logo" /> </a>
-    <a className="navbar-brand brand-logo-mini" href="index.html">
-      <img src="assets/images/logo-mini.svg" alt="logo" /> </a>
+    <Link className="navbar-brand brand-logo" to="/dashboard">
+      <img src="../assets/images/logo.svg" alt="logo" /> </Link>
+    <Link className="navbar-brand brand-logo-mini" to="/dashboard">
+      <img src="../assets/images/logo-mini.svg" alt="logo" /> </Link>
   </div>
   <div className="navbar-menu-wrapper d-flex align-items-center">
     <ul className="navbar-nav">

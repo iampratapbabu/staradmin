@@ -2,9 +2,6 @@ import logo from './logo.svg';
 import './App.css';
 import Homepage from './pages/Homepage';
 import { Fragment } from 'react';
-import Grid from '@mui/material/Grid';
-import Navbar from './layouts/Navbar';
-import Sidebar from './layouts/Sidebar';
 import { BrowserRouter, Routes, Route,Switch,Link } from "react-router-dom";
 import Login from './pages/Login';
 import Register from './pages/Register'
@@ -13,8 +10,19 @@ import Profile from './pages/Profile';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+//css files
+import './assets/css/demo_1/style.css';
+import './assets/css/shared/style.css';
+import './assets/images/favicon.ico';
+import './assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css';
+import './assets/vendors/iconfonts/ionicons/dist/css/ionicons.css';
+import './assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css';
+import './assets/vendors/css/vendor.bundle.base.css';
+import './assets/vendors/css/vendor.bundle.addons.css';
+
 //state management context files
 import AuthState from './context/auth/AuthState';
+import Users from './pages/Users';
 
 
 function App() {
@@ -32,6 +40,7 @@ function App() {
       <Route path='/' element = {<Homepage/>}>
         <Route path='dashboard' element = {<Dashboard/>}/>
         <Route path='profile' element = {<Profile/>}/>
+        <Route path='users' element = {<Users/>}/>
       </Route>
       </Routes>
     </Fragment>
