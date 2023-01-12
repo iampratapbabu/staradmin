@@ -28,10 +28,8 @@ const Dashboard = () =>{
     },[])
 
     const Mylogout = () =>{
-        localStorage.removeItem('token');
         logout();
         navigate('/login');
-        toast.success("Logged Out Successfully");
     }
 
     

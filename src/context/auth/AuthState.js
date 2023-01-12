@@ -117,11 +117,12 @@ const AuthState = (props) =>{
     }
 
     const logout = () =>{
-        //localStorage.removeItem('token');
+        localStorage.removeItem('token');
         console.log("user is logged out")
         dispatch({
             type:LOGOUT,
-        })
+        });
+        toast.success("Logged Out Successfully");
         dispatch({
             type:SHOW_ALERT,
             payload:"logged out successfully"

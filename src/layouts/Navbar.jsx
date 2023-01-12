@@ -11,6 +11,15 @@ import minilogo from '../assets/images/logo-mini.svg';
 const Navbar = () =>{
   const authContext = useContext(AuthContext);
   const {login,logout,userdata,msg,user,isLoggedIn,loadUser,createProfile} = authContext;
+  const navigate = useNavigate();
+
+
+
+    const Mylogout = () =>{
+      logout();
+      navigate('/login');
+    }
+
     return(
         <Fragment>
             <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -149,15 +158,18 @@ const Navbar = () =>{
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
+        
           <Dropdown.Item>          
             <div className="dropdown-header text-center">
             <img className="img-md rounded-circle" src={`http://localhost:3200/${user?.photo}`} alt="Profile image"/>
             <p className="mb-1 mt-3 font-weight-semibold">{user?.fname}{" "}{user?.lname}</p>
             <p className="font-weight-light text-muted mb-0">{user?.email}</p>
           </div>
+         
           </Dropdown.Item>
-          <Dropdown.Item><button className="btn btn-light btn-fw">Profile</button></Dropdown.Item>
-          <Dropdown.Item><button className="btn btn-light btn-fw">Sign out</button></Dropdown.Item>
+          <Dropdown.Item><button onClick={()=>{navigate('/profile')}} className="btn btn-light btn-fw">Profile</button></Dropdown.Item>
+          <Dropdown.Item><button onClick={Mylogout} className="btn btn-light btn-fw">Sign out</button></Dropdown.Item>
+          
         </Dropdown.Menu>
       </Dropdown>
       </div>
