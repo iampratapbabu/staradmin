@@ -1,6 +1,8 @@
 import react, { Fragment,useContext } from 'react';
 import { Navigate,useNavigate ,Link } from 'react-router-dom';
 import AuthContext from '../context/auth/AuthContext';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 
 //logos
 import mainlogo from '../assets/images/logo.svg';
@@ -100,7 +102,7 @@ const Navbar = () =>{
           </a>
         </div>
       </li>
-      <li className="nav-item dropdown">
+      <li className="nav-item dropdown mr-2">
         <a className="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown">
           <i className="mdi mdi-email-outline"></i>
           <span className="count bg-success">3</span>
@@ -139,22 +141,28 @@ const Navbar = () =>{
           </a>
         </div>
       </li>
-      <li className="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-        <a className="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-          <img className="img-xs rounded-circle" src={`http://localhost:3200/${user?.photo}`} alt="Profile image"/> </a>
-        <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-          <div className="dropdown-header text-center">
+     
+     <div>
+      <Dropdown>
+        <Dropdown.Toggle variant='light' id="dropdown-basic">
+        <img className="img-xs rounded-circle" src={`http://localhost:3200/${user?.photo}`} alt="Profile image"/>
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item>          
+            <div className="dropdown-header text-center">
             <img className="img-md rounded-circle" src={`http://localhost:3200/${user?.photo}`} alt="Profile image"/>
-            <p className="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-            <p className="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p>
+            <p className="mb-1 mt-3 font-weight-semibold">{user?.fname}{" "}{user?.lname}</p>
+            <p className="font-weight-light text-muted mb-0">{user?.email}</p>
           </div>
-          <a className="dropdown-item">My Profile <span className="badge badge-pill badge-danger">1</span><i className="dropdown-item-icon ti-dashboard"></i></a>
-          <a className="dropdown-item">Messages<i className="dropdown-item-icon ti-comment-alt"></i></a>
-          <a className="dropdown-item">Activity<i className="dropdown-item-icon ti-location-arrow"></i></a>
-          <a className="dropdown-item">FAQ<i className="dropdown-item-icon ti-help-alt"></i></a>
-          <a className="dropdown-item">Sign Out<i className="dropdown-item-icon ti-power-off"></i></a>
-        </div>
-      </li>
+          </Dropdown.Item>
+          <Dropdown.Item><button className="btn btn-light btn-fw">Profile</button></Dropdown.Item>
+          <Dropdown.Item><button className="btn btn-light btn-fw">Sign out</button></Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      </div>
+
+      
     </ul>
     <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
       <span className="mdi mdi-menu"></span>

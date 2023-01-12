@@ -27,7 +27,6 @@ const Homepage = () =>{
             </Grid>
             <Grid container spacing={2}>
                 <Grid item xs={2}>
-                <div class="padding-custom"></div>
                     <Sidebar/>
                 </Grid>
                 <Grid item xs={10}>

@@ -29,12 +29,24 @@ const Sidebar = () =>{
         <Link className="menu-title" to='/dashboard'>Dashboard</Link>
       </a>
     </li>
+
+    {/*conditionally showing login and logout */}
+    {isLoggedIn ?     
+    <li className="nav-item">
+      <a className="nav-link">
+        <i className="menu-icon typcn typcn-document-text"></i>
+        <Link className="menu-title" to='/login'>Logout</Link>
+        </a>
+    </li> :
+    
     <li className="nav-item">
       <a className="nav-link">
         <i className="menu-icon typcn typcn-document-text"></i>
         <Link className="menu-title" to='/login'>Login</Link>
         </a>
     </li>
+    }
+
     <li className="nav-item">
       <a className="nav-link">
         <i className="menu-icon typcn typcn-document-text"></i>
