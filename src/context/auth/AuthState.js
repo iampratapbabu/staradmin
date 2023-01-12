@@ -6,7 +6,7 @@ import AuthReducer from './AuthReducer';
 import {REGISTER_SUCCESS,REGISTER_FAIL,
     USER_LOADED,AUTH_ERROR,LOGIN_SUCCESS,LOGIN_FAIL,
     LOGOUT,CLEAR_ERRORS,TOGGLE_LOGIN,TOGGLE_LOADING,SHOW_ALERT,REMOVE_ALERT,CHANGE_PASSWORD_FAILED,
-    CHANGE_PASSWORD_SUCCESS
+    CHANGE_PASSWORD_SUCCESS,USER_DATA_LOADED
 } from '../types';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -25,6 +25,7 @@ const AuthState = (props) =>{
         user:null,
         isLoggedIn:null,
         errorMessage:"",
+        users:[],
     }
 
     const [state,dispatch]=useReducer(AuthReducer,initialState);
@@ -232,6 +233,19 @@ const AuthState = (props) =>{
         }, 4000);
     }
 
+    const loadUsers = () =>{
+        axios.get('http://localhost:3200/users/').then(res=>{
+            console.log(res);
+            dispatch({
+                type:USER_DATA_LOADED,
+                payload:res.data.users
+            })
+        })
+        
+        //direct accessing state
+        //console.log(initialState.alertMsg)
+    }
+
     
 
     return(
@@ -244,6 +258,7 @@ const AuthState = (props) =>{
             isLoggedIn:state.isLoggedIn,
             errorMessage:state.errorMessage,
             alertMsg:state.alertMsg,
+            users:state.users,
             register,
             loadUser,
             login,
@@ -255,6 +270,7 @@ const AuthState = (props) =>{
             toggleLogin,
             setLoading,
             setAlert,
+            loadUsers,
         }}>
         {props.children}
         </AuthContext.Provider>
