@@ -7,6 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Dropdown from 'react-bootstrap/Dropdown';
 
+import TopBar from '../components/Dashboard/TopBar';
+import TopSummary from '../components/Dashboard/TopSummary';
+import TopSection from '../components/Dashboard/TopSection';
+import MidSection from '../components/Dashboard/MidSection';
+import LastSection from '../components/Dashboard/LastSections';
+
 
 const Dashboard = () =>{
     const navigate = useNavigate();
@@ -39,30 +45,31 @@ const Dashboard = () =>{
     return(
         <Fragment>
             
-           
-            {showAlert && <Alert msg={["success","LoggedIn Successully"]}/>}
-            <h1>Dashboard</h1>
-            <p>{alertMsg}</p>
-            <p>{user?._id}</p>
-            <p>{user?.email}</p>
+
+
+        
+          <div class="content-wrapper">
+
+                       
+          {showAlert && <Alert msg={["success","LoggedIn Successully"]}/>}
+
+            
+            <TopBar/>
             <button className='btn btn-primary mr-2' onClick={Mylogout}>Logout</button>
             <button className='btn btn-success' onClick={()=>{navigate('/profile')}}>Profile</button>
+            <TopSummary/>
+            <TopSection/>
+            <MidSection/>
+            <LastSection/>
 
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Dropdown Button
-                </Dropdown.Toggle>
+            
 
-                <Dropdown.Menu>
-                    <Dropdown.Item><button className="btn btn-light btn-fw">Profile</button></Dropdown.Item>
-                    <Dropdown.Item><button className="btn btn-light btn-fw">Sign out</button></Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
+            
 
 
-
-
-             
+          
+          </div>
+            
 
         </Fragment>
        

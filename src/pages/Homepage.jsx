@@ -20,21 +20,27 @@ const Homepage = () =>{
 
     return(
         <Fragment>
-                <Grid container spacing={1}>
+            
+                <Grid container spacing={0}>
                 <Grid item xs={12}>
                     <Navbar/>
                 </Grid>
             </Grid>
-            <Grid container spacing={2}>
-                <Grid item xs={2}>
+            
+            <Grid container spacing={0}>
+           
+                <Grid item xs={1.7}>
                     <Sidebar/>
                 </Grid>
-                <Grid item xs={10}>
-                    <div className="padding-custom"></div>
+                <Grid item xs={10.3}>
+                    <div className="padding-custom">
                      <Outlet/> {/*this is used when nested routing is used */}
+                     </div>
                 </Grid>
-   
+            
             </Grid>
+            
+            
         </Fragment>
     )
 }

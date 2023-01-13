@@ -22,8 +22,8 @@ const Navbar = () =>{
 
     return(
         <Fragment>
-            <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-  <div className="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div className="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
     <Link className="navbar-brand brand-logo" to="/dashboard">
       <img src={mainlogo} alt="logo" /> </Link>
     <Link className="navbar-brand brand-logo-mini" to="/dashboard">
