@@ -85,7 +85,7 @@ export default (state,action) =>{
             return{
                 ...state,
                 users:[...state.users,action.payload]
-            }
+        }
 
         
 
