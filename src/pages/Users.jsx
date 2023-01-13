@@ -84,6 +84,8 @@ const Users = () =>{
               
               </div>
               <h4 className='display-4'>Total users: {users.length}</h4>
+
+              {/* user item here */}
               <hr/>
               {users.map(user =>(<UserItem id={user._id} user={user}/>))}
 
