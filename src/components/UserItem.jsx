@@ -16,7 +16,7 @@ const MyVerticallyCenteredModal= (props) => {
     },[]);
 
     const authContext = useContext(AuthContext);
-    const {loading,setLoading,user,createProfile,showAlert,setAlert,msg,alertMsg,changePassword,changeImage} = authContext;
+    const {loading,setLoading,user,createProfile,showAlert,setAlert,msg,loadUsers} = authContext;
     const [userProfile,setUserProfile] = useState({
         fname:"",
         lname:"",
@@ -57,6 +57,7 @@ const MyVerticallyCenteredModal= (props) => {
         props.onHide();
         console.log("Modal submitted",userProfile);
         createProfile(props.userval._id,userProfile);
+        
     }
 
     const fillForm = () =>{
@@ -69,6 +70,7 @@ const MyVerticallyCenteredModal= (props) => {
         {...props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
+        dialogClassName="modal-90w"
         centered
       >
         <Modal.Header>
@@ -77,7 +79,7 @@ const MyVerticallyCenteredModal= (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className='container'>
+        <div>
             <button id='fillformauto' onClick={fillForm}></button>
             <div className="col-12 grid-margin">
                 <div className="card">
@@ -230,7 +232,7 @@ const MyVerticallyCenteredModal= (props) => {
 
 const UserItem = ({user}) =>{
     const authContext = useContext(AuthContext);
-    const {deleteUser} = authContext;
+    const {deleteUser,loadUsers} = authContext;
     const [modalShow, setModalShow] = useState(false);
     const [myUser,setmyUser] = useState({});
     const getUser = (userid) =>{

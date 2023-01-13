@@ -22,3 +22,8 @@
 .padding-custom{
   margin-top: 0.6rem;
 }
+
+.modal-90w{
+  width:50rem;
+  height: 200px;
+}

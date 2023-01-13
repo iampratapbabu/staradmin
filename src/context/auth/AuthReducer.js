@@ -1,6 +1,6 @@
 import {REGISTER_SUCCESS,REGISTER_FAIL,
     USER_LOADED,AUTH_ERROR,LOGIN_SUCCESS,LOGIN_FAIL,
-LOGOUT,CLEAR_ERRORS, TOGGLE_LOGIN,TOGGLE_LOADING,SHOW_ALERT,REMOVE_ALERT,USER_DATA_LOADED} from '../types';
+LOGOUT,CLEAR_ERRORS, TOGGLE_LOGIN,TOGGLE_LOADING,SHOW_ALERT,REMOVE_ALERT,USER_DATA_LOADED,DELETE_USER,UPDATE_USER,ADD_USER} from '../types';
 
 export default (state,action) =>{
     switch(action.type){
@@ -71,6 +71,21 @@ export default (state,action) =>{
                users:action.payload,
                loading:false,
         }
+        case DELETE_USER:
+                return{
+                    ...state,
+                    users:state.users.filter(user=>user._id !== action.payload)
+        }
+        case UPDATE_USER:
+            return{
+                ...state,
+                users:action.payload
+        }
+        case ADD_USER:
+            return{
+                ...state,
+                users:[...state.users,action.payload]
+            }
 
         
 

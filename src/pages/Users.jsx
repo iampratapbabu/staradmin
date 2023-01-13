@@ -6,21 +6,31 @@ import axios from 'axios'
 
 const Users = () =>{
     const authContext = useContext(AuthContext);
-    const {loadUsers,loading,users} = authContext;
+    const {loadUsers,loading,users,createUser,user} = authContext;
 
     useEffect(()=>{
         loadUsers();
         //allUsers();
     },[]);
 
-    const [userData,setuserData] = useState([]);
+    const [userData,setuserData] = useState({
+      fname:"",
+      lname:"",
+      email:"",
+      password:""
+    });
 
-    const onChange = () =>{
-        console.log("form is changed")
+    const onChange = (e) =>{
+      console.log("form is changed");
+      setuserData({...userData,[e.target.name]:e.target.value});
+
     }
 
     const onSubmit = (e) =>{
-        console.log("form is submitted");
+      e.preventDefault();
+      console.log("form is submitted",userData);
+      createUser(userData,user._id);
+      
     }
     if(loading) return (<h1>Loading...</h1>);
     return(
@@ -45,7 +55,7 @@ const Users = () =>{
                           <div className="form-group row">
                             <label className="col-sm-3 col-form-label">Last Name</label>
                             <div className="col-sm-9">
-                              <input type="text" className="form-control" name="lname" />
+                              <input type="text" className="form-control" name="lname" onChange={onChange}/>
                             </div>
                           </div>
                         </div>
@@ -53,7 +63,7 @@ const Users = () =>{
                           <div className="form-group row">
                             <label className="col-sm-3 col-form-label">Email</label>
                             <div className="col-sm-9">
-                              <input type="email" className="form-control" name="lname" />
+                              <input type="email" className="form-control" name="email" onChange={onChange}/>
                             </div>
                           </div>
                         </div>
@@ -61,7 +71,7 @@ const Users = () =>{
                           <div className="form-group row">
                             <label className="col-sm-3 col-form-label">Password</label>
                             <div className="col-sm-9">
-                              <input type="password" className="form-control" name="lname" />
+                              <input type="password" className="form-control" name="password" onChange={onChange}/>
                             </div>
                           </div>
                         </div>

@@ -6,7 +6,7 @@ import AuthReducer from './AuthReducer';
 import {REGISTER_SUCCESS,REGISTER_FAIL,
     USER_LOADED,AUTH_ERROR,LOGIN_SUCCESS,LOGIN_FAIL,
     LOGOUT,CLEAR_ERRORS,TOGGLE_LOGIN,TOGGLE_LOADING,SHOW_ALERT,REMOVE_ALERT,CHANGE_PASSWORD_FAILED,
-    CHANGE_PASSWORD_SUCCESS,USER_DATA_LOADED
+    CHANGE_PASSWORD_SUCCESS,USER_DATA_LOADED,DELETE_USER,UPDATE_USER,ADD_USER,
 } from '../types';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -232,11 +232,31 @@ const AuthState = (props) =>{
         
         //direct accessing state
         //console.log(initialState.alertMsg)
+
+    }
+    const createUser = async(value,userid) =>{
+        await axios.post(`http://localhost:3200/users/profile/${userid}`,value).then(res=>{
+            console.log(res);
+            toast.success("user created");
+            dispatch({
+                type:ADD_USER,
+                payload:res.data.user
+            })
+            
+        }).catch(err =>{
+            console.log(err);
+            toast.error(err.response.data.errormsg)
+        })
+
     }
     const deleteUser = async(userid) =>{
         await axios.delete(`http://localhost:3200/users/profile/${userid}`).then(res=>{
             console.log(res);
-            toast.error("user is deleted")
+            toast.error("user is deleted");
+            dispatch({
+                type:DELETE_USER,
+                payload:userid
+            })
         })
     }
  
@@ -266,6 +286,7 @@ const AuthState = (props) =>{
             setLoading,
             setAlert,
             loadUsers,
+            createUser,
         }}>
         {props.children}
         </AuthContext.Provider>
