@@ -23,17 +23,19 @@ import './assets/vendors/css/vendor.bundle.addons.css';
 //state management context files
 import AuthState from './context/auth/AuthState';
 import Users from './pages/Users';
+import Categories from './pages/Categories';
+import CategoriesState from './context/categories/CategoriesState';
 
 
 function App() {
   return (
 
     <AuthState>
+    <CategoriesState>
 
     <Fragment>
     <ToastContainer />
       <Routes>
-        
       <Route path='/login' element = {<Login/>}/>
       <Route path='/register'  element = {<Register/>}/>
       {/* nested routing here */}
@@ -41,10 +43,12 @@ function App() {
         <Route path='dashboard' element = {<Dashboard/>}/>
         <Route path='profile' element = {<Profile/>}/>
         <Route path='users' element = {<Users/>}/>
+        <Route path='categories' element = {<Categories/>}/>
       </Route>
       </Routes>
     </Fragment>
-    
+
+    </CategoriesState>
     </AuthState>
 
   );

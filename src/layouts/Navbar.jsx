@@ -170,6 +170,7 @@ const Navbar = () =>{
           <Dropdown.Item><button onClick={()=>{navigate('/profile')}} className="btn btn-light btn-fw">Profile</button></Dropdown.Item>
           <Dropdown.Item><button onClick={Mylogout} className="btn btn-light btn-fw">Sign out</button></Dropdown.Item>
           <Dropdown.Item><button onClick={()=>navigate('/users')} className="btn btn-light btn-fw">Users</button></Dropdown.Item>
+          <Dropdown.Item><button onClick={()=>navigate('/categories')} className="btn btn-light btn-fw">Categories</button></Dropdown.Item>
 
         </Dropdown.Menu>
       </Dropdown>

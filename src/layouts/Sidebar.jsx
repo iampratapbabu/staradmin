@@ -59,6 +59,12 @@ const Sidebar = () =>{
         <Link className="menu-title" to='/users'>Users</Link>
         </a>
     </li>
+    <li className="nav-item">
+      <a className="nav-link">
+        <i className="menu-icon typcn typcn-document-text"></i>
+        <Link className="menu-title" to='/categories'>Categories</Link>
+        </a>
+    </li>
 
   </ul>
 </nav>

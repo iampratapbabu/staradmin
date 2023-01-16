@@ -227,7 +227,7 @@ const MyVerticallyCenteredModal= (props) => {
         </Modal.Footer>
       </Modal>
     );
-  }
+}
 
 
 const UserItem = ({user}) =>{

@@ -56,7 +56,7 @@ const Profile = () =>{
     
     }
       
-    const {membership} = userProfile 
+    
     const handleCheck = (e) =>{
       console.log(e.target.value);
       if(e.target.value === "free"){
