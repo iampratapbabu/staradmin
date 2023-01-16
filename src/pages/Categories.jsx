@@ -9,27 +9,45 @@ import AddIcon from '@mui/icons-material/Add';
 
 
 const MyCategoryModal = (props) => {
+    const formData = new FormData();
+    const catContext = useContext(CategoriesContext);
+    const { createCategory,uploadImage} = catContext;
 
     useEffect(() => {
         console.log("use effect from modal");
 
     }, []);
 
-
+    const [category,setCategory] = useState({
+        title:"",
+        body:"",
+        file:{}
+    });
 
     const onChange = (e) => {
-        console.log("on change fired")
-    }
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        console.log("on submit fired")
-
+        console.log("on change fired");
+        setCategory({...category,[e.target.name]:e.target.value});
     }
 
     const handleImage = (e) => {
         console.log(e.target.files[0]);
+        setCategory({...category,file:e.target.files[0]});
     }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log("on submit fired");
+        formData.append("file", category.file);
+        formData.append("title", category.title);
+        formData.append("body", category.body);
+        //console.log(formData)
+        createCategory(formData);
+        props.onHide();
+
+    }
+
+
+
 
     return (
         <Modal
@@ -51,10 +69,10 @@ const MyCategoryModal = (props) => {
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="form-group">
-                                    <input type="text" className="form-control" name="fname" placeholder="Title" onChange={onChange} />
+                                    <input type="text" className="form-control" name="title" placeholder="Title" onChange={onChange} />
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" className="form-control" name="fname" placeholder="Body" onChange={onChange} />
+                                    <input type="text" className="form-control" name="body" placeholder="Body" onChange={onChange} />
                                 </div>
                                 <div className="form-group">
                                     <input type="file" accept=".png .jpeg .jpg" className="form-control" name="file" onChange={handleImage} />
@@ -74,7 +92,11 @@ const MyCategoryModal = (props) => {
 
 const Categories = () => {
     const catContext = useContext(CategoriesContext);
-    const { mycategory, demofun } = catContext;
+    const { mycategory, getAllCategories,allCategories } = catContext;
+
+    useEffect(()=>{
+        getAllCategories();
+    },[])
 
     const [modalShow, setModalShow] = useState(false);
     const openModal = () => {
@@ -94,7 +116,15 @@ const Categories = () => {
                     </p>
                 </div>
             </div>
-            <SingleCategory />
+            {/* <SingleCategory /> */}
+            <section class="bg-light">
+            <div class="container py-5">
+            <div class="row">
+            {allCategories && allCategories.map(singleCat =>(<SingleCategory key={singleCat._id} singleCat={singleCat}/>))}
+            </div>
+            
+            </div>
+        </section>
         </Fragment>
 
     )

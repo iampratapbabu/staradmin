@@ -87,7 +87,7 @@ const Users = () =>{
 
               {/* user item here */}
               <hr/>
-              {users.map(user =>(<UserItem id={user._id} user={user}/>))}
+              {users.map(user =>(<UserItem key={user._id} user={user}/>))}
 
         
 
