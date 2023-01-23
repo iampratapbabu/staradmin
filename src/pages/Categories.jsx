@@ -2,10 +2,13 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 import CategoriesContext from "../context/categories/CategoriesContext";
 import SingleCategory from "../components/SingleCategory";
 import Modal from 'react-bootstrap/Modal';
+import Grid from '@mui/material/Grid';
+
 
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import SingleCategoryDetail from "../components/SingleCategoryDetail";
 
 
 const MyCategoryModal = (props) => {
@@ -104,7 +107,7 @@ const Categories = () => {
     }
     return (
         <Fragment>
-            <p>{mycategory}</p>
+            
             <MyCategoryModal show={modalShow} onHide={() => setModalShow(false)} userval={{ "name": "Tej" }} />
             {/* <Button onClick={demofun}>DemoFunction</Button> */}
             <div class="row text-center py-3">
@@ -116,15 +119,28 @@ const Categories = () => {
                     </p>
                 </div>
             </div>
-            {/* <SingleCategory /> */}
-            <section class="bg-light">
+        
+            {/* <section class="bg-light">
             <div class="container py-5">
-            <div class="row">
-            {allCategories && allCategories.map(singleCat =>(<SingleCategory key={singleCat._id} singleCat={singleCat}/>))}
+            <div class="row"> */}
+            {/* {allCategories && allCategories.map(singleCat =>(<SingleCategory key={singleCat._id} singleCat={singleCat}/>))} */}
+            {/* </div>
             </div>
-            
-            </div>
-        </section>
+            </section> */}
+
+            <Grid container spacing={1}>
+           
+                <Grid item xs={6}>
+                    {allCategories && allCategories.map(singleCat =>(<SingleCategory key={singleCat._id} singleCat={singleCat}/>))}
+                </Grid>
+                <Grid item xs={6}>
+                    <div className="card">
+                    <SingleCategoryDetail/>
+                    </div>
+                    
+                </Grid>
+       
+            </Grid>
         </Fragment>
 
     )

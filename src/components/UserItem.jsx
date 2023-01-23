@@ -295,9 +295,9 @@ const UserItem = ({user}) =>{
                             <h5 className='text-muted'>{user.state}</h5>
                         </div>
                         <div className="col-md-3">
-                          <button onClick={(user_id)=>editUser(user._id)} className='btn btn-inverse-primary  mr-1'>Edit</button>
-                          <button onClick={(user_id)=>detailUser(user._id)} className='btn btn-inverse-info mr-1'>Details</button>
-                          <button onClick={(user_id)=>deleteUserSingle(user._id)}className='btn btn-inverse-danger  mr-1'>Delete</button>
+                          <button onClick={()=>editUser(user._id)} className='btn btn-inverse-primary  mr-1'>Edit</button>
+                          <button onClick={()=>detailUser(user._id)} className='btn btn-inverse-info mr-1'>Details</button>
+                          <button onClick={()=>deleteUserSingle(user._id)}className='btn btn-inverse-danger  mr-1'>Delete</button>
                       </div>
 
                       </div>
