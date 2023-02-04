@@ -27,7 +27,7 @@ const CategoriesState = (props) =>{
     }
 
     const getAllCategories = async() =>{
-        await axios.get('http://localhost:3200/category').then(res=>{
+        await axios.get('https://staradmin.onrender.com/category').then(res=>{
             console.log(res);
             dispatch({
                 type:CATEGORY_LOAD_SUCCESS,
@@ -45,7 +45,7 @@ const CategoriesState = (props) =>{
 
     const createCategory = async(value) =>{
         console.log("data sent to backend",value);
-        await axios.post('http://localhost:3200/category',value).then(res =>{
+        await axios.post('https://staradmin.onrender.com/category',value).then(res =>{
             console.log(res);
             toast.success("category added");
             dispatch({
@@ -60,7 +60,7 @@ const CategoriesState = (props) =>{
     }
 
     const getSingleCategory = async(cat_id) =>{
-        await axios.get(`http://localhost:3200/category/${cat_id}`).then(res=>{
+        await axios.get(`https://staradmin.onrender.com/category/${cat_id}`).then(res=>{
             console.log(res);
             dispatch({
                 type:GET_SINGLE_CATEGORY_SUCCESS,
@@ -75,7 +75,7 @@ const CategoriesState = (props) =>{
         })
     }
     const deleteSingleCategory = async(cat_id) =>{
-        await axios.delete(`http://localhost:3200/category/${cat_id}`).then(res=>{
+        await axios.delete(`https://staradmin.onrender.com/category/${cat_id}`).then(res=>{
             console.log(res);
             toast.success("category deleted succesffully");
             dispatch({
