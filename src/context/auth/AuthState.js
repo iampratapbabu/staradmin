@@ -31,7 +31,7 @@ const AuthState = (props) =>{
     const [state,dispatch]=useReducer(AuthReducer,initialState);
     
     const login = (user) =>{
-        axios.post('http://localhost:3200/users/login',user)
+        axios.post('https://staradmin.onrender.com/users/login',user)
         .then(res=>{
             let serverResponse = res;
             console.log(serverResponse.data);
@@ -56,7 +56,7 @@ const AuthState = (props) =>{
     }
     const register = async(userData) =>{
         console.log(userData);
-        await axios.post('http://localhost:3200/users/signup',userData)
+        await axios.post('https://staradmin.onrender.com/users/signup',userData)
         .then(res=>{
             // console.log(res.data);
             let serverResponse = res;
@@ -96,7 +96,7 @@ const AuthState = (props) =>{
     }
     const loadUser = () =>{
         try{
-            const res = axios.get('http://localhost:3200/users/protect',{
+            const res = axios.get('https://staradmin.onrender.com/users/protect',{
                 headers:{
                     'x-access-token':localStorage.getItem('token')
                 }
@@ -128,7 +128,7 @@ const AuthState = (props) =>{
     }
     const changePassword = async(value,userid) =>{
         console.log("change password from auth state",value);
-        await axios.patch(`http://localhost:3200/users/changepassword/${userid}`,value)
+        await axios.patch(`https://staradmin.onrender.com/users/changepassword/${userid}`,value)
             .then(res=>{
                 console.log(res);
                 let serverResponse =res;
@@ -145,7 +145,7 @@ const AuthState = (props) =>{
     }
     const changeImage = async(value,userid) =>{
         console.log("data from auth state",value);
-        await axios.patch(`http://localhost:3200/users/change-image/${userid}`,value)
+        await axios.patch(`https://staradmin.onrender.com/users/change-image/${userid}`,value)
         .then(res=>{
             console.log(res);
             let serverResponse = res;
@@ -173,7 +173,7 @@ const AuthState = (props) =>{
     }
     const createProfile = (id,profileData) =>{
         
-        axios.patch(`http://localhost:3200/users/profile/${id}`,profileData)
+        axios.patch(`https://staradmin.onrender.com/users/profile/${id}`,profileData)
         .then(res=>{
             console.log(res.data);
             //alert(res.data.msg);
@@ -222,7 +222,7 @@ const AuthState = (props) =>{
         }, 4000);
     }
     const loadUsers = () =>{
-        axios.get('http://localhost:3200/users/').then(res=>{
+        axios.get('https://staradmin.onrender.com/users/').then(res=>{
             console.log(res);
             dispatch({
                 type:USER_DATA_LOADED,
@@ -235,7 +235,7 @@ const AuthState = (props) =>{
 
     }
     const createUser = async(value,userid) =>{
-        await axios.post(`http://localhost:3200/users/profile/${userid}`,value).then(res=>{
+        await axios.post(`https://staradmin.onrender.com/users/profile/${userid}`,value).then(res=>{
             console.log(res);
             toast.success("user created");
             dispatch({
@@ -250,7 +250,7 @@ const AuthState = (props) =>{
 
     }
     const deleteUser = async(userid) =>{
-        await axios.delete(`http://localhost:3200/users/profile/${userid}`).then(res=>{
+        await axios.delete(`https://staradmin.onrender.com/users/profile/${userid}`).then(res=>{
             console.log(res);
             toast.error("user is deleted");
             dispatch({
