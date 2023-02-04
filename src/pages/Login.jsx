@@ -44,7 +44,7 @@ const Login = () =>{
       if(userLogin.username == "" || userLogin.password == ""){
         alert("Please provide the required credentials")
       }else{
-        axios.post('http://localhost:3200/users/login',userLogin)
+        axios.post('https://staradmin.onrender.com/users/login',userLogin)
         .then(res=>{
             let serverResponse = res;
             console.log(serverResponse.data);
